@@ -35,13 +35,13 @@ const List = async () => {
   const candidates = candidatesUnsorted.sort(
     (a: any, b: any) => b.score - a.score
   );
-
+  console.log(candidates);
   // this voting has max of 10 winners
   const maxWinners = votingInfo.winners_count;
 
   const isUrbe = (username: string) => {
     // talent protocol usernames of urbe team members in this voting
-    const urbeUsernames = ["blackiconeth", "soliditydrone"];
+    const urbeUsernames = ["blackiconeth", "soliditydrone", "deca12x"];
     return username && urbeUsernames.includes(username);
   };
 
@@ -65,16 +65,17 @@ const List = async () => {
           <p>{votingInfo.vote_count}</p>
         </div>
       </div>
-      <ol className="flex flex-col gap-4">
+      <ol className="flex flex-col gap-2">
         <li className="flex gap-4">
           <b>Pos</b>
           <b>Votes</b>
           <b>Name</b>
+          <b>Username</b>
         </li>
         {candidates.map((candidate: any, index: number) => (
           <li
             key={candidate.name}
-            className={`flex gap-4 ${
+            className={`flex gap-4 px-2 ${
               index === maxWinners - 1 ? "border-white border-b-4" : ""
             }
           ${isUrbe(candidate.username) ? "border-pink-400 border-4" : ""}
@@ -93,7 +94,10 @@ const List = async () => {
                 height={32}
                 className="w-[32px] h-[32px] rounded-full object-cover"
               />
-              {candidate.name}
+              <div className="flex flex-col">
+                <b>{candidate.name}</b>
+                <span className="text-slate-400">@{candidate.username}</span>
+              </div>
             </div>
           </li>
         ))}
