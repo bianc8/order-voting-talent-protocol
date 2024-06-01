@@ -1,7 +1,12 @@
 export const dynamic = "force-dynamic";
 
 const List = async () => {
+  // voting slug
   const votingSlug = "eth-cc";
+
+  // this voting has max of 10 winners
+  const maxWinners = 10;
+
   const response = await fetch(
     `https://play.talentprotocol.com/api/v1/votings/${votingSlug}/candidates_leaderboard/?per_page=100`
   );
@@ -11,6 +16,7 @@ const List = async () => {
   );
 
   const isUrbe = (username: string) => {
+    // talent protocol usernames of urbe team members
     const urbeUsernames = ["blackiconeth", "soliditydrone"];
     return username && urbeUsernames.includes(username);
   };
@@ -25,7 +31,9 @@ const List = async () => {
       {candidates.map((candidate: any, index: number) => (
         <li
           key={candidate.name}
-          className={`flex gap-4 ${index === 9 ? "border-white border-b-4" : ""}
+          className={`flex gap-4 ${
+            index === maxWinners - 1 ? "border-white border-b-4" : ""
+          }
           ${isUrbe(candidate.username) ? "border-pink-400 border-4" : ""}
           `}
         >
