@@ -46,6 +46,15 @@ const List = async () => {
     return username && urbeUsernames.includes(username);
   };
 
+  const prizePool = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    currencyDisplay: "code",
+  })
+    .format(parseFloat(votingInfo.prize_pool || 0))
+    .replace("USD", "")
+    .trim();
+
   return (
     <div>
       <h1 className="text-3xl font-bold">
@@ -58,7 +67,7 @@ const List = async () => {
         </div>
         <div>
           <h1 className="text-xl font-bold">Prize Pool</h1>
-          <p>{votingInfo.prize_pool} $TALENT</p>
+          <p>{prizePool} $TALENT</p>
         </div>
 
         <div>
