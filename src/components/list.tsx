@@ -36,7 +36,6 @@ const List = async () => {
   const candidates = candidatesUnsorted.sort(
     (a: any, b: any) => b.score - a.score
   );
-  console.log(candidates);
   // this voting has max of 10 winners
   const maxWinners = votingInfo.winners_count;
 
@@ -55,11 +54,32 @@ const List = async () => {
     .replace("USD", "")
     .trim();
 
+  const nowDate = new Date();
+  const endDate = new Date(votingInfo.voting_end_date);
+  const timeDiff = Math.abs(endDate.getTime() - nowDate.getTime()) / 36e5;
+  const endDateString = endDate.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    timeZoneName: "short",
+  });
   return (
     <div>
       <h1 className="text-3xl font-bold">
         {votingInfo.name} by Talent Protocol
       </h1>
+      <div className="mt-4 flex justify-between">
+        <div>
+          <h1 className="text-xl font-bold">End Voting</h1>
+          <p>{endDateString}</p>
+        </div>
+        <div>
+          <h1 className="text-xl font-bold">Time Left</h1>
+          <p>{timeDiff.toFixed(2)} hours</p>
+        </div>
+      </div>
       <div className="flex w-full justify-between my-10">
         <div>
           <h1 className="text-xl font-bold">Candidates</h1>
