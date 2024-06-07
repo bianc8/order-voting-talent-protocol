@@ -105,39 +105,43 @@ const List = async () => {
         {candidates.map((candidate: any, index: number) => (
           <li
             key={candidate.name}
-            className={`flex gap-4 px-2 items-center justify-between ${
-              index === maxWinners - 1 ? "border-white border-b-4" : ""
-            }
+            className={`p-2 ${
+              index === maxWinners - 1 ? " border-white border-b-4" : ""
+            }`}
+          >
+            <div
+              className={`flex gap-4 px-2 items-center justify-between
           ${isUrbe(candidate.username) ? "border-pink-400 border-4" : ""}
           `}
-          >
-            <div className="flex gap-1 items-center">#{index + 1}</div>
-            <div className="flex gap-1 items-center">
-              <b>{candidate.score}</b>
-              Votes
-            </div>
-            <div className="flex gap-1 items-center">
-              <Image
-                src={candidate.profile_picture_url ?? ""}
-                alt={candidate.name}
-                width={32}
-                height={32}
-                className="w-[32px] h-[32px] rounded-full object-cover"
-              />
-              <div className="flex flex-col">
-                <b>{candidate.name.slice(0, 21)}</b>
-                <span className="text-slate-400">@{candidate.username}</span>
+            >
+              <div className="flex gap-1 items-center">#{index + 1}</div>
+              <div className="flex gap-1 items-center">
+                <b>{candidate.score}</b>
+                Votes
               </div>
+              <div className="flex gap-1 items-center">
+                <Image
+                  src={candidate.profile_picture_url ?? ""}
+                  alt={candidate.name}
+                  width={32}
+                  height={32}
+                  className="w-[32px] h-[32px] rounded-full object-cover"
+                />
+                <div className="flex flex-col">
+                  <b>{candidate.name.slice(0, 21)}</b>
+                  <span className="text-slate-400">@{candidate.username}</span>
+                </div>
+              </div>
+              <button className="bg-violet-300 rounded-xl px-5 py-0 h-[40px]">
+                <a
+                  className="text-white font-bold my-0 py-0"
+                  target="_blank"
+                  href={`https://play.talentprotocol.com/votings/eth-cc?open_voting_modal=true&name=${candidate.username}`}
+                >
+                  Vote
+                </a>
+              </button>
             </div>
-            <button className="bg-violet-300 rounded-xl px-5 py-0 h-[40px]">
-              <a
-                className="text-white font-bold my-0 py-0"
-                target="_blank"
-                href={`https://play.talentprotocol.com/votings/eth-cc?open_voting_modal=true&name=${candidate.username}`}
-              >
-                Vote
-              </a>
-            </button>
           </li>
         ))}
       </ol>
